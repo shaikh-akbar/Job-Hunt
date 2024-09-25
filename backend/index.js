@@ -19,12 +19,11 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())
-const corsOptions = {
-    origin: "https://job-hunt-frontend-khaki.vercel.app", // Frontend URL
-    credentials: true, // Allow credentials (cookies, etc.)
-    methods: ["GET", "POST", "PUT", "DELETE"], // Allowed methods
-  };
-  
+const corsOption = {
+    origin: "https://job-hunt-frontend-khaki.vercel.app",
+    credentials: true,
+}
+
 app.use(cors(corsOption))
 const PORT = process.env.PORT || 8000
 
