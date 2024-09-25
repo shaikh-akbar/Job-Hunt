@@ -6,6 +6,8 @@ import getDataUri from "../utils/datauri.js";
 import cloudinary from "../utils/cloudinary.js";
 
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 export const register = async (req, res) => {
     try {
         const { fullName, email, phoneNumber, password, role } = req.body;
@@ -98,7 +100,8 @@ export const login = async (req, res) => {
             profile: user.profile
         }
 
-        return res.status(200).cookie("token", token, { maxAge: 1 * 24 * 60 * 60 * 1000, httpsOnly: true, sameSite: 'strict' }).json({
+        return res.status(200).cookie("token", token, { maxAge: 1 * 24 * 60 * 60 * 1000, httpOnly: true, sameSite:  isProduction ? 'none' : 'lax',     secure: isProduction 
+        }).json({
             message: `Welcome back ${user.fullName}`,
             user,
             success: true
